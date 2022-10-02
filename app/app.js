@@ -106,7 +106,7 @@ function changeNumber(action, id) {
     if (item.id === id) {
       if (action === "-" && numberOfUnits >= 0) {
         numberOfUnits--;
-    }
+      }
       else if (action === "+") {
         numberOfUnits++;
       }
@@ -117,14 +117,16 @@ function changeNumber(action, id) {
     }
 
   })
-  for (let i = 0; i < cart.length; i++) {
-    if (cart[i].numberOfUnits === 0) {
-      cart.splice(i, 1)
+  if (action === "-" ) {
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].numberOfUnits === 0) {
+        document.getElementById(id).classList.remove("innactive")
+        document.getElementById(id).classList.remove("noHover")
+        document.getElementById(id).innerHTML = 'ADD TO CART'
+        cart.splice(i, 1)
+      }
     }
   }
-  document.getElementById(id).classList.remove("innactive")
-  document.getElementById(id).classList.remove("noHover")
-  document.getElementById(id).innerHTML = 'ADD TO CART'
 
 
   updateCart();
