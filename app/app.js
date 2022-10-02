@@ -68,7 +68,7 @@ function renderTotalPrice() {
 
 function renderCart() {
   //clear all
-  if (cart.length === 0) cartItem.innerHTML = `<p>Your cart is empty.</p>`
+  //if (cart.length === 0) cartItem.innerHTML = `<p>Your cart is empty.</p>`
   cartItem.innerHTML = "";
   cart.forEach(item => {
     cartItem.innerHTML += `<div class="cart-item">
