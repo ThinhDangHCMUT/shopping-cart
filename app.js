@@ -1,3 +1,6 @@
+
+
+
 const productItem = document.querySelector(".card-body_shop")
 const cartItem = document.querySelector(".card-body_cart")
 const totalPrice = document.querySelector(".card-title-amount")
@@ -74,7 +77,7 @@ function renderCart() {
   //clear all
   cartItem.innerHTML = "";
   if (cart.length === 0) cartItem.innerHTML = `<p>Your cart is empty.</p>`
-  
+
   cart.forEach(item => {
     cartItem.innerHTML += `<div class="cart-item">
         <div class="cart-item-left">
