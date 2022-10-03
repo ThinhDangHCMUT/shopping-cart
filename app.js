@@ -22,7 +22,6 @@ function renderProduct() {
         `
   })
 }
-
 renderProduct()
 
 
@@ -36,7 +35,7 @@ if(dataString){
 }
 
 cart.forEach(item => {
-  buttonDisable(document.getElementById(item.id));
+  buttonDisable(document.getElementById(item.id))
 })
 
 
@@ -53,7 +52,6 @@ function addToCard(id) {
       ...item,
       numberOfUnits: 1
     })
-    localStorage.setItem("CART", JSON.stringify(cart))
     buttonDisable(document.getElementById(id))
   }  
   updateCart()
@@ -66,7 +64,6 @@ function buttonDisable(x) {
   x.innerHTML = `<div class="shop-item-button-cover">
                 <div class="shop-item-button-cover-check-icon"></div>
                 </div>`
-  //localStorage.setItem("BUTTON", JSON.stringify(document.querySelector(x)))
 }
 
 
@@ -88,8 +85,10 @@ function renderTotalPrice() {
 function renderCart() {
   //clear all
   cartItem.innerHTML = "";
+  //if cart is empty 
   if (cart.length === 0) cartItem.innerHTML = `<p>Your cart is empty.</p>`
-
+  
+  //add product to cart
   cart.forEach(item => {
     cartItem.innerHTML += `<div class="cart-item">
         <div class="cart-item-left">
@@ -121,21 +120,22 @@ function renderCart() {
 
 function changeNumber(action, id) {
   cart = cart.map((item) => {
-    let numberOfUnits = item.numberOfUnits
+    //let numberOfUnits = item.numberOfUnits
     if (item.id === id) {
-      if (action === "-" && numberOfUnits >= 0) {
-        numberOfUnits--;
+      if (action === "-" && item.numberOfUnits >= 0) {
+        item.numberOfUnits--;
       }
       else if (action === "+") {
-        numberOfUnits++;
+        item.numberOfUnits++;
+        //console.log(item.numberOfUnits)
       }
     }
     return {
       ...item,
-      numberOfUnits,
     }
-
+    
   })
+  //if numberOfUnits = 1 and we click "-" button remove item from cart
   if (action === "-" ) {
     for (let i = 0; i < cart.length; i++) {
       if (cart[i].numberOfUnits === 0) {
@@ -147,14 +147,16 @@ function changeNumber(action, id) {
       }
     }
   }
+  localStorage.setItem("CART", JSON.stringify(cart))
   updateCart();
 }
 
-
+//remove item by delete button 
 function removeItemCart(id) {
   cart = cart.filter(item => item.id !== id)
   localStorage.setItem("CART", JSON.stringify(cart))
   updateCart()
+  //after remove return  add to cart state 
   document.getElementById(id).classList.remove("innactive")
   document.getElementById(id).classList.remove("noHover")
   document.getElementById(id).innerHTML = 'ADD TO CART'
