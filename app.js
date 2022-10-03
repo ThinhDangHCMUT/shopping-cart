@@ -4,9 +4,9 @@ const totalPrice = document.querySelector(".card-title-amount")
 const buttonChange = document.querySelector(".item_button")
 
 
-
 function renderProduct() {
   shoes.forEach((product) => {
+   // document.getElementById(product.id) = JSON.parse(localStorage.getItem("BUTTON"))
     productItem.innerHTML += `
         <div class="card-body_item">
             <div class="item_image" style="background-color: ${product.color} ">
@@ -16,25 +16,33 @@ function renderProduct() {
             <div class="item_content">${product.description}</div>
             <div class="item_bottom">
             <div class="item_price">$ ${product.price}</div>
-            <div class="item_button" id=${product.id} onclick = "addToCard(${product.id}); buttonDisable(this)" >ADD TO CART</div>
+            <div class="item_button" id=${product.id} onclick = addToCard(${product.id}) >ADD TO CART</div>
             </div>
         </div> 
         `
   })
 }
 
-  renderProduct()
+renderProduct()
 
 
+let cart = []
+var dataString  =  localStorage.getItem("CART")
+//check if cart is empty or not
+if(dataString){
+  cart = JSON.parse(dataString)
+}else{
+  cart = []
+}
+
+cart.forEach(item => {
+  buttonDisable(document.getElementById(item.id));
+})
 
 
-//let cart = JSON.parse(localStorage.getItem("CART"))
-
-let cart = [];
 updateCart()
-//JSON.parse(localStorage.getItem('myButton'))
 
-
+//Add product to cart
 function addToCard(id) {
   //check if product is already exist in card
   if (cart.some((item) => item.id === id)) {
@@ -45,9 +53,10 @@ function addToCard(id) {
       ...item,
       numberOfUnits: 1
     })
-  }
+    localStorage.setItem("CART", JSON.stringify(cart))
+    buttonDisable(document.getElementById(id))
+  }  
   updateCart()
-
 }
 
 
@@ -57,13 +66,13 @@ function buttonDisable(x) {
   x.innerHTML = `<div class="shop-item-button-cover">
                 <div class="shop-item-button-cover-check-icon"></div>
                 </div>`
+  //localStorage.setItem("BUTTON", JSON.stringify(document.querySelector(x)))
 }
 
 
 function updateCart() {
   renderCart()
   renderTotalPrice()
-  localStorage.setItem("CART", JSON.stringify(cart))
 }
 
 
@@ -105,7 +114,6 @@ function renderCart() {
           </div>
         </div> 
       </div>
-
         `
   })
 }
@@ -135,17 +143,17 @@ function changeNumber(action, id) {
         document.getElementById(id).classList.remove("noHover")
         document.getElementById(id).innerHTML = 'ADD TO CART'
         cart.splice(i, 1)
+        localStorage.setItem("CART", JSON.stringify(cart))
       }
     }
   }
-
-
   updateCart();
 }
 
 
 function removeItemCart(id) {
   cart = cart.filter(item => item.id !== id)
+  localStorage.setItem("CART", JSON.stringify(cart))
   updateCart()
   document.getElementById(id).classList.remove("innactive")
   document.getElementById(id).classList.remove("noHover")
