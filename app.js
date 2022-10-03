@@ -1,10 +1,9 @@
-
-
-
 const productItem = document.querySelector(".card-body_shop")
 const cartItem = document.querySelector(".card-body_cart")
 const totalPrice = document.querySelector(".card-title-amount")
 const buttonChange = document.querySelector(".item_button")
+
+
 
 function renderProduct() {
   shoes.forEach((product) => {
@@ -23,13 +22,17 @@ function renderProduct() {
         `
   })
 }
-renderProduct()
+
+  renderProduct()
 
 
-let cart = JSON.parse(localStorage.getItem("CART"))
-//let cart = [];
+
+
+//let cart = JSON.parse(localStorage.getItem("CART"))
+
+let cart = [];
 updateCart()
-JSON.parse(localStorage.getItem('myButton'))
+//JSON.parse(localStorage.getItem('myButton'))
 
 
 function addToCard(id) {
