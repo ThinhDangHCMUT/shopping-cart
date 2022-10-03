@@ -32,7 +32,7 @@ JSON.parse(localStorage.getItem('myButton'))
 function addToCard(id) {
   //check if product is already exist in card
   if (cart.some((item) => item.id === id)) {
-
+    console.log("Product already exists in card");
   } else {
     const item = shoes.find((product) => product.id === id)
     cart.push({
@@ -41,8 +41,9 @@ function addToCard(id) {
     })
   }
   updateCart()
-  //buttonChange.classList.add("innactive")
+
 }
+
 
 function buttonDisable(x) {
   x.classList.add("noHover")
@@ -52,11 +53,13 @@ function buttonDisable(x) {
                 </div>`
 }
 
+
 function updateCart() {
   renderCart()
   renderTotalPrice()
   localStorage.setItem("CART", JSON.stringify(cart))
 }
+
 
 function renderTotalPrice() {
   let total = 0;
@@ -66,10 +69,12 @@ function renderTotalPrice() {
   totalPrice.innerHTML = `$${total.toFixed(2)}`
 }
 
+
 function renderCart() {
   //clear all
-  //if (cart.length === 0) cartItem.innerHTML = `<p>Your cart is empty.</p>`
   cartItem.innerHTML = "";
+  if (cart.length === 0) cartItem.innerHTML = `<p>Your cart is empty.</p>`
+  
   cart.forEach(item => {
     cartItem.innerHTML += `<div class="cart-item">
         <div class="cart-item-left">
