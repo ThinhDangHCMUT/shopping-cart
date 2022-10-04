@@ -53,6 +53,8 @@ function addToCard(id) {
       numberOfUnits: 1
     })
     buttonDisable(document.getElementById(id))
+  localStorage.setItem("CART", JSON.stringify(cart))
+
   }  
   updateCart()
 }
